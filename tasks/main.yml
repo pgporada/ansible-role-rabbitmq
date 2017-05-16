@@ -1,0 +1,17 @@
+---
+- include: install_RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- include: using_sensu.yml
+  when: rabbitmq_sensu_deploy is defined and rabbitmq_sensu_deploy
+
+- name: Ensure rabbitmq is running
+  become: true
+  become_method: sudo
+  service:
+    name: rabbitmq-server
+    enabled: true
+    state: started
+
+- include: create_vhosts.yml
+...

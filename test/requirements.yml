@@ -1,0 +1,5 @@
+---
+- name: pgporada.repo-epel
+- name: pgporada.repo-sensu
+- name: pgporada.sensu
+...

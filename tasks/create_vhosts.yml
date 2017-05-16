@@ -1,0 +1,31 @@
+---
+- name: Remove guest account
+  become: true
+  become_method: sudo
+  rabbitmq_user:
+    user: guest
+    state: absent
+
+- name: Ensure RabbitMQ vhost(s) exist
+  become: true
+  become_method: sudo
+  rabbitmq_vhost:
+    name: "{{ item.vhost }}"
+    state: present
+  no_log: true
+  with_items: "{{ rabbitmq_vhosts }}"
+
+- name: Ensure RabbitMQ user(s) have access to their vhost(s)
+  become: true
+  become_method: sudo
+  rabbitmq_user:
+    user: "{{ item.user }}"
+    password: "{{ item.password }}"
+    vhost: "{{ item.vhost }}"
+    configure_priv: ".*"
+    read_priv: ".*"
+    write_priv: ".*"
+    state: present
+  no_log: true
+  with_items: "{{ rabbitmq_vhosts }}"
+...

@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: philporada@gmail.com
+  description: ansible-role-rabbitmq
+  company: MI Tall Guy
+  license: GPLv3
+  min_ansible_version: 2.2
+  platforms:
+    - name: EL
+      versions:
+        - 7
+  galaxy_tags:
+    - sensu
+    - monitoring
+    - messagequeue
+    - messaging
+    - pubsub
+
+dependencies:
+  - {role: pgporada.repo-epel}
+...

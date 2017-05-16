@@ -1,0 +1,72 @@
+---
+rabbitmq_port: 5672
+rabbitmq_port_ssl: 5671
+rabbitmq_listen_addr: 127.0.0.1
+rabbitmq_use_ssl: false
+rabbitmq_log_level: info
+
+rabbitmq_vhosts: []
+# rabbitmq_vhosts:
+#   - user: sensu
+#     password: sensu
+#     vhost: /sensu
+
+rabbitmq_sensu_deploy: false
+sensu_rabbitmq_user: "{{ rabbitmq_vhosts.0.user }}"
+sensu_rabbitmq_password: "{{ rabbitmq_vhosts.0.password }}"
+sensu_rabbitmq_vhost: "{{ rabbitmq_vhosts.0.vhost }}"
+
+#sensu_rabbitmq_cert_chain_file: /etc/sensu/ssl/cert.pem
+#sensu_rabbitmq_private_key_file: /etc/sensu/ssl/key.pem
+
+#sensu_rabbitmq_ssl_server_key: |
+#    -----BEGIN RSA PRIVATE KEY-----
+#    MIIEogIBAAKCAQEArSECEMbyYpKBoxC+pEt1wBwKDw3VQpWEt2vAAiO3LrxB8/2c
+#    ZxW2NF0gNtmjNmZ+FbswDHtjpGoS6NKz+lZ5UWPY5oS4DCJuHOlXxIVZ0cOCRnok
+#    E3zp+lvbKI6wz4MGIsXwucDHr14EQWAXY6rkARBw0rOUgK7LTcDj+6M9ncEPl10h
+#    gvLxJIz3jO/426Dev45fF9Od7mYEwpyf0vPNU6KmKxP3KXOuH+/YN5iu8SsQhGwR
+#    tacGHvv6+QroB5QvN70loYOjkb2J9t9JbzL2lCvZ0mthB1/TTvH9U2bnOd1rAkk4
+#    TY7wBpKvCquGKlxvgG6YisV2bGJ3cJ/pwXOgGQIDAQABAoIBABbQTrFfRflvTN3s
+#    CvMjbnTOPRUWwY9wnHh/HmIpyq3B6P754G5FEil8TA5uR2+Xue2rKP28FLlJsQw1
+#    F7pZQstS2PYnbwlKUDBHH2WqHNfjZ3taBP78auiuygZiJzJxFZHne30+xhF51h23
+#    R92+WyU4wWVCfMMoRWoNjP1P2YK8An6UQzPZsM1rzNpMSr51KVEZOk7nVXdryW0o
+#    yjlGB5mBvsWTYbJh1ZRhfF4pvtmnw2VGzUzF+7NLGCxwRShsEirmemgFvmy3FHIX
+#    OiUWkEMXipFnTYnnNAO2GSAHP2fD63krT1YX879a5oRaRfGL9eSK8sZJ+e0J4aNE
+#    3eZwvgECgYEA3dfKDnKia63om3ic4xofNHwgQF1C2dwxCvbLJ4KOCwRGl3xDMw/c
+#    hLBntQCueBrY2Q6TvP3WlUJgRYdcFbxY9wQ/BJwJmzt/OC58xEynb4MZ4BGi8Tcw
+#    Ix2iH7HpAQsV3BFjslbhfaN8UKcxmqigu3G0/wafPnbPgeTg+kCPcYkCgYEAx8kY
+#    5Br1rLzR0xCdZk3mdYzAbXUmwBOXuOiQ3aIWSfjC2izLkgJ7iQ8KbXOuL585wmXF
+#    wdFyhEUbbZo4yyiwpiYxfeiorY4qXV5FdmwoepFBAAJqy42lBOLfUJWBPGo0bmtr
+#    QlXLZC3E+MsWA1hpySYPHIDOliLBmQZGyTmM5hECgYAXublZXDc0ru++mOKmgyet
+#    NE06tP6uUBdKpeRKQHMyiG2IS/jf4CVkZ31f5UfDfpOMezufrcIiSmwDY5uck30s
+#    Rd77fjikynMrrgUX9V6+1VWSGjDD/XP/fW7WVu+ldesLkyyHaTVKe46TDZ6HfNtb
+#    0Khb0fh79LbynGjXOspciQKBgGfk0vXkczf2JWOOc1v9TMh6fqMtVg5y4ea9woAP
+#    R2oGXEYbH235roZy9OhATSfktKO8Sx/krJnOWlof5kL4EQ0GNZyVfgprMOrHGHZh
+#    /pbmrJe1qhXaviMRXDJK3R8u179IS0n+1btt9c2vxu3Mb460JQ2cilIXFvheBDem
+#    nvgRAoGAcqbfRIcVuDDfbQMu3w9RlA5a4NKXWjFkzoRfaUsta2ZaJonTNV7u1yUK
+#    49ZpNMVv9sZHerTxxwdob3tACyI4FCj22+ERgyiK7tQw9Zt+a8IMuWCwiD6MY0Iy
+#    meoSdsHz254d6EIT7dUC8Cb8oLLCxe1f4L6WWlQm4TN/isPrNrI=
+#    -----END RSA PRIVATE KEY-----
+
+#sensu_rabbitmq_ssl_server_cert: |
+#    -----BEGIN CERTIFICATE-----
+#    MIIDOjCCAiICCQCys2GekEi6yzANBgkqhkiG9w0BAQsFADBfMQswCQYDVQQGEwJV
+#    UzERMA8GA1UECAwITWljaGlnYW4xEDAOBgNVBAcMB0RldHJvaXQxCzAJBgNVBAoM
+#    AkdMMQswCQYDVQQLDAJJVDERMA8GA1UEAwwIZ2wtc2Vuc3UwHhcNMTcwMTIzMjAx
+#    MTEyWhcNMTkwMTIzMjAxMTEyWjBfMQswCQYDVQQGEwJVUzERMA8GA1UECAwITWlj
+#    aGlnYW4xEDAOBgNVBAcMB0RldHJvaXQxCzAJBgNVBAoMAkdMMQswCQYDVQQLDAJJ
+#    VDERMA8GA1UEAwwIZ2wtc2Vuc3UwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+#    AoIBAQCtIQIQxvJikoGjEL6kS3XAHAoPDdVClYS3a8ACI7cuvEHz/ZxnFbY0XSA2
+#    2aM2Zn4VuzAMe2OkahLo0rP6VnlRY9jmhLgMIm4c6VfEhVnRw4JGeiQTfOn6W9so
+#    jrDPgwYixfC5wMevXgRBYBdjquQBEHDSs5SArstNwOP7oz2dwQ+XXSGC8vEkjPeM
+#    7/jboN6/jl8X053uZgTCnJ/S881ToqYrE/cpc64f79g3mK7xKxCEbBG1pwYe+/r5
+#    CugHlC83vSWhg6ORvYn230lvMvaUK9nSa2EHX9NO8f1TZuc53WsCSThNjvAGkq8K
+#    q4YqXG+AbpiKxXZsYndwn+nBc6AZAgMBAAEwDQYJKoZIhvcNAQELBQADggEBACju
+#    9wXTcGjwp0RAfSqFdp6zHFwTc/Bu99MaEQ8MujUnfMt6X0I0F9UZ5YOgjMyiIF3V
+#    s8NC63GKkgNGvOguPR1kLLqm57Xttojz6GfTdGxftP9NgAGkFOZ111VoPAbitZil
+#    PkXNVBIFrUcUp82cniSmRAisnVwlPJ1ddGVqrhPtuFyTbc/pkh43D1sm/3uZJW1v
+#    HNKGEamHb64A/2qyf3vfENnw8Bf+VSAqj55edkZaVqP0znnK+tnpwnSeexZxV6t0
+#    XLrzidbQjDLCcFGHLcQS1W3RO8U3EWEb/dq3Hsep/H0SvNk+yjsZSF4Rp65Uu/X2
+#    qZF79gbJoFqg0Dalb7k=
+#    -----END CERTIFICATE-----
+...

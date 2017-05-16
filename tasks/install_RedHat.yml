@@ -1,0 +1,39 @@
+---
+- name: Install Rabbitmq and dependencies
+  become: true
+  become_method: sudo
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - rabbitmq-server
+    - libselinux-python
+    - policycoreutils-python
+
+# https://sensuapp.org/docs/latest/reference/rabbitmq.html#rabbitmq-and-selinux
+- name: SELinux booleans
+  become: true
+  become_method: sudo
+  seboolean:
+    name: "{{ item }}"
+    state: "yes"
+    persistent: "yes"
+  with_items:
+    - nis_enabled
+
+- name: Write the /etc/rabbitmq/rabbitmq.conf template
+  become: true
+  become_method: sudo
+  template:
+    src: "etc/rabbitmq/rabbitmq.config.j2"
+    dest: "/etc/rabbitmq/rabbitmq.config"
+    owner: root
+    group: root
+    mode: 0644
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+  notify:
+    - Restart rabbitmq
+...

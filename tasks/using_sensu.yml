@@ -1,0 +1,84 @@
+---
+- name: Ensure sensu directory structure is in place
+  become: true
+  become_method: sudo
+  file:
+    state: directory
+    path: /etc/sensu/
+    owner: root
+    group: root
+    mode: 0755
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+
+- name: Ensure RabbitMQ SSL directory exists
+  become: true
+  become_method: sudo
+  file:
+    state: directory
+    path: /etc/sensu/ssl
+    owner: root
+    group: root
+    mode: 0755
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+
+- name: Ensure RabbitMQ SSL cert is in place
+  become: true
+  become_method: sudo
+  copy:
+    content: "{{ sensu_rabbitmq_ssl_server_cert }}"
+    dest: /etc/sensu/ssl/cert.pem
+    force: "yes"
+    owner: root
+    group: root
+    mode: 0644
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+  when: rabbitmq_use_ssl is defined and rabbitmq_use_ssl
+  notify:
+    - Restart rabbitmq
+    - Restart sensu-api
+
+- name: Ensure RabbitMQ SSL key is in place
+  become: true
+  become_method: sudo
+  copy:
+    content: "{{ sensu_rabbitmq_ssl_server_key }}"
+    dest: /etc/sensu/ssl/key.pem
+    force: "yes"
+    owner: root
+    group: root
+    mode: 0644
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+  when: rabbitmq_use_ssl is defined and rabbitmq_use_ssl
+  notify:
+    - Restart rabbitmq
+    - Restart sensu-api
+
+- name: Deploy Sensu /etc/sensu/conf.d/rabbitmq.json config
+  become: true
+  become_method: sudo
+  template:
+    src: "etc/sensu/conf.d/rabbitmq.json.j2"
+    dest: "/etc/sensu/conf.d/rabbitmq.json"
+    force: "yes"
+    owner: root
+    group: root
+    mode: 0644
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+  notify:
+    - Restart sensu-api
+...

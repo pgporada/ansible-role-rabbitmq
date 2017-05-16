@@ -1,0 +1,21 @@
+{
+  "rabbitmq": {
+
+    {% if rabbitmq_use_ssl is defined and rabbitmq_use_ssl %}
+    "ssl": {
+      "cert_chain_file": "{{ sensu_rabbitmq_cert_chain_file }}",
+      "private_key_file": "{{ sensu_rabbitmq_private_key_file }}"
+    },
+    {% endif %}
+
+    "host": "{{ rabbitmq_listen_addr }}",
+    {% if rabbitmq_use_ssl is defined and rabbitmq_use_ssl %}
+    "port": {{ rabbitmq_port_ssl }},
+    {% else %}
+    "port": {{ rabbitmq_port }},
+    {% endif %}
+    "vhost": "{{ sensu_rabbitmq_vhost }}",
+    "user": "{{ sensu_rabbitmq_user }}",
+    "password": "{{ sensu_rabbitmq_password }}"
+	}
+}
